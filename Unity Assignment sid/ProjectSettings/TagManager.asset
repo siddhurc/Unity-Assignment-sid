@@ -6,6 +6,7 @@ TagManager:
   tags:
   - points
   - ground
+  - gameovercollider
   layers:
   - Default
   - TransparentFX

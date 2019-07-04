@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,16 +13,19 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     float hit;
     private int count;
+    
     // Start is called before the first frame update
 
 
     void Start()
     {
+      
         rb = GetComponent<Rigidbody>();
         count = 0;
         displayScore();
         cam1.enabled = true;
         cam2.enabled = false;
+        
     }
 
     
@@ -49,6 +53,11 @@ public class PlayerController : MonoBehaviour
             cam1.enabled = false;
             cam2.enabled = true;
         }
+        if(score.text=="16")
+        {
+            score.text = "YOU WIN!!!!";
+            Invoke("restart", 4f);
+        }
 
     }
     void OnCollisionEnter(Collision other)//when the object is on the ground
@@ -59,9 +68,10 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "gameovercollider")
         {
-            SceneManager.LoadScene("Exercise_4");
+            
             displayGameOver();
-              
+            Invoke("restart", 3f);
+
 
         }
     }
@@ -86,11 +96,18 @@ public class PlayerController : MonoBehaviour
     }
     void displayScore()
     {
-        score.text = "Score : " + count.ToString();
+        score.text = "" + count.ToString();
     }
     void displayGameOver()
     {
         score.text = "Game over";
     }
+
+    public void restart()
+    {
+        SceneManager.LoadScene("Exercise_4");
+    }
+
+    
 
 }
