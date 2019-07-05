@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
 
-                rb.AddForce(new Vector3(0f, 300f, 0f));
+                rb.AddForce(new Vector3(0f, 400f, 0f));
             }
         }
         if (Input.GetKeyDown("q"))
@@ -53,11 +53,11 @@ public class PlayerController : MonoBehaviour
             cam1.enabled = false;
             cam2.enabled = true;
         }
-        if(score.text=="16")
+       /* if(score.text=="16")
         {
             score.text = "YOU WIN!!!!";
             Invoke("restart", 4f);
-        }
+        }*/
 
     }
     void OnCollisionEnter(Collision other)//when the object is on the ground
@@ -68,12 +68,10 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "gameovercollider")
         {
-            
             displayGameOver();
-            Invoke("restart", 3f);
-
-
+            Invoke("restart", 2f);
         }
+       
     }
 
 
@@ -92,6 +90,12 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             count = count + 1;
             displayScore();
+        }
+        if (other.gameObject.tag == "wingame")
+        {
+            other.gameObject.SetActive(false);
+            score.text = "YOU WIN!!!!";
+            Invoke("restart", 2f);
         }
     }
     void displayScore()
